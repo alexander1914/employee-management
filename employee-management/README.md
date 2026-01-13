@@ -12,3 +12,19 @@ Following these steps to configure this spring boot your machine
 * [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 * [Oracle DB with Docker](https://medium.com/xp-inc/dica-r%C3%A1pida-criando-base-de-dados-oracle-vers%C3%A3o-21-3-0-no-docker-357b05754b84)
+
+### Spring Data JPA 
+Spring Data JPA is a framework that simplifies database access in Spring Boot applications by providing an abstraction 
+layer over the Java Persistence API (JPA). 
+It enables seamless integration with relational databases using Object-Relational Mapping (ORM), 
+eliminating the need for boilerplate SQL queries.
+
+With Spring Data JPA, developers no longer need to:
+
+* Manually write DAO implementations.
+* Manage EntityManager directly.
+* Write repetitive CRUD queries
+
+**Data Transfer Object (DTO)** is an object that carries data between processes. 
+When you're working with a remote interface, each call is expensive. 
+As a result, you need to reduce the number of calls.
