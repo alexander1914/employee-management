@@ -15,8 +15,8 @@ Following these steps to configure this spring boot your machine
 
 ### Spring Data JPA 
 Spring Data JPA is a framework that simplifies database access in Spring Boot applications by providing an abstraction 
-layer over the Java Persistence API (JPA). 
-It enables seamless integration with relational databases using Object-Relational Mapping (ORM), 
+layer over the **Java Persistence API (JPA)**. 
+It enables seamless integration with relational databases using **Object-Relational Mapping (ORM)**, 
 eliminating the need for boilerplate SQL queries.
 
 With Spring Data JPA, developers no longer need to:
@@ -25,6 +25,6 @@ With Spring Data JPA, developers no longer need to:
 * Manage EntityManager directly.
 * Write repetitive CRUD queries
 
-**Data Transfer Object (DTO)** is an object that carries data between processes. 
+**Data Transfer Object (DTO)**: is an object that carries data between processes. 
 When you're working with a remote interface, each call is expensive. 
 As a result, you need to reduce the number of calls.
