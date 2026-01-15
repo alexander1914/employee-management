@@ -4,10 +4,7 @@ import com.github.alexander.employee.dto.DepartmentDto;
 import com.github.alexander.employee.service.DepartmentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/departments")
@@ -24,5 +21,12 @@ public class DepartmentController {
         DepartmentDto savedDepartment = departmentService.addDepartment(departmentDto);
 
         return new ResponseEntity<>(savedDepartment, HttpStatus.CREATED);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<DepartmentDto> findDepartmentById(@PathVariable("id") Long departmentId){
+        DepartmentDto departmentDto = departmentService.getDepartmentById(departmentId);
+
+        return new ResponseEntity<>(departmentDto, HttpStatus.OK);
     }
 }
