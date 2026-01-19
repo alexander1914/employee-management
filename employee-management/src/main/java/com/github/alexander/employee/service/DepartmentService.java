@@ -2,7 +2,10 @@ package com.github.alexander.employee.service;
 
 import com.github.alexander.employee.dto.DepartmentDto;
 
+import java.util.List;
+
 public interface DepartmentService {
-    DepartmentDto addDepartment(DepartmentDto departmentDto);
     DepartmentDto getDepartmentById(Long id);
+    List<DepartmentDto> getAllDepartments();
+    DepartmentDto addDepartment(DepartmentDto departmentDto);
 }

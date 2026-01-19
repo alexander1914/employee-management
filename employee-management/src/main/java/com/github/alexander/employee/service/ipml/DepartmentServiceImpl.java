@@ -8,6 +8,9 @@ import com.github.alexander.employee.service.DepartmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
@@ -17,6 +20,26 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentServiceImpl(DepartmentRepository departmentRepository, ModelMapper modelMapper) {
         this.departmentRepository = departmentRepository;
         this.modelMapper = modelMapper;
+    }
+
+    @Override
+    public DepartmentDto getDepartmentById(Long id) {
+        // Find department by ID on database
+        Department department = departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
+
+        return modelMapper.map(department, DepartmentDto.class);
+    }
+
+    @Override
+    public List<DepartmentDto> getAllDepartments() {
+        // Find all departments on database
+        List<Department> departments = departmentRepository.findAll();
+
+        // Mapping Departments Entity to Departments DTOs
+        return departments.stream()
+                .map((department) -> modelMapper.map(departments,DepartmentDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -31,13 +54,5 @@ public class DepartmentServiceImpl implements DepartmentService {
         DepartmentDto savedDepartmentDto = modelMapper.map(savedDepartment, DepartmentDto.class);
 
         return savedDepartmentDto;
-    }
-
-    @Override
-    public DepartmentDto getDepartmentById(Long id) {
-        Department department = departmentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
-
-        return modelMapper.map(department, DepartmentDto.class);
     }
 }
