@@ -8,4 +8,5 @@ public interface DepartmentService {
     DepartmentDto getDepartmentById(Long id);
     List<DepartmentDto> getAllDepartments();
     DepartmentDto addDepartment(DepartmentDto departmentDto);
+    DepartmentDto updateDepartment(DepartmentDto departmentDto, Long id);
 }

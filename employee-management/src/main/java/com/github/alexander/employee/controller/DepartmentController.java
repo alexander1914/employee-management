@@ -38,4 +38,12 @@ public class DepartmentController {
 
         return new ResponseEntity<>(savedDepartment, HttpStatus.CREATED);
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<DepartmentDto> updateDepartment(@RequestBody DepartmentDto departmentDto,
+                                                          @PathVariable Long departmentId){
+        DepartmentDto updateDepartment = departmentService.updateDepartment(departmentDto, departmentId);
+
+        return new ResponseEntity<>(updateDepartment, HttpStatus.OK);
+    }
 }

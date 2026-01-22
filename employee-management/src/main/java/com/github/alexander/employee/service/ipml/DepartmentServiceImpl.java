@@ -55,4 +55,19 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         return savedDepartmentDto;
     }
+
+    @Override
+    public DepartmentDto updateDepartment(DepartmentDto departmentDto, Long id) {
+        // Find department by ID on database
+        Department department = departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
+
+        department.setDepartmentName(departmentDto.getDepartmentName());
+        department.setDepartmentDescription(department.getDepartmentName());
+
+        // Save Department Entity
+        Department updatedDepartment = departmentRepository.save(department);
+
+        return modelMapper.map(updatedDepartment, DepartmentDto.class);
+    }
 }
