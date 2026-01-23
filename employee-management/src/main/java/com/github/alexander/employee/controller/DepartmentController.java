@@ -46,4 +46,11 @@ public class DepartmentController {
 
         return new ResponseEntity<>(updateDepartment, HttpStatus.OK);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteDepartment(@PathVariable Long departmentId){
+        departmentService.deleteDepartment(departmentId);
+
+        return new ResponseEntity<>("Department deleted successfully", HttpStatus.OK);
+    }
 }

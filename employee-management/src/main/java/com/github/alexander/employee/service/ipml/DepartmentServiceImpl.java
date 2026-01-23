@@ -70,4 +70,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         return modelMapper.map(updatedDepartment, DepartmentDto.class);
     }
+
+    @Override
+    public void deleteDepartment(Long id) {
+        Department department = departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
+
+        departmentRepository.deleteById(id);
+    }
 }
