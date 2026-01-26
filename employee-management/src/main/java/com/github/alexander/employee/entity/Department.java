@@ -1,6 +1,7 @@
 package com.github.alexander.employee.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "departments")
@@ -15,6 +16,9 @@ public class Department {
 
     @Column(nullable = false)
     private String departmentDescription;
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Employee> employees;
 
     public Department() {
     }
@@ -47,5 +51,13 @@ public class Department {
 
     public void setDepartmentDescription(String departmentDescription) {
         this.departmentDescription = departmentDescription;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }

@@ -28,3 +28,14 @@ With Spring Data JPA, developers no longer need to:
 **Data Transfer Object (DTO)**: is an object that carries data between processes. 
 When you're working with a remote interface, each call is expensive. 
 As a result, you need to reduce the number of calls.
+
+**@ManyToOne:** is an annotation the Hibernate will create the many-to-one relation between these two entities. 
+This annotation is used to map a single-valued annotation where multiple instances of one entity are associated 
+with a single instance of another entity.
+
+**@JoinColumn:** is an annotation is applied on the owning side of the association to define, 
+the foreign key column name and other attributes which are related to the join column.
+
+**@OneToMany:** is an annotation in Hibernate is used to obtain one-to-many relationships between two entities. 
+It is used to map a collection-valued association where a single instance of an entity is mapped to multiple instances 
+of another entity.
