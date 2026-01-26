@@ -39,16 +39,16 @@ public class DepartmentController {
         return new ResponseEntity<>(savedDepartment, HttpStatus.CREATED);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{id}/update")
     public ResponseEntity<DepartmentDto> updateDepartment(@RequestBody DepartmentDto departmentDto,
-                                                          @PathVariable Long departmentId){
+                                                          @PathVariable("id") Long departmentId){
         DepartmentDto updateDepartment = departmentService.updateDepartment(departmentDto, departmentId);
 
         return new ResponseEntity<>(updateDepartment, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteDepartment(@PathVariable Long departmentId){
+    @DeleteMapping("{id}/delete")
+    public ResponseEntity<String> deleteDepartment(@PathVariable("id") Long departmentId){
         departmentService.deleteDepartment(departmentId);
 
         return new ResponseEntity<>("Department deleted successfully", HttpStatus.OK);

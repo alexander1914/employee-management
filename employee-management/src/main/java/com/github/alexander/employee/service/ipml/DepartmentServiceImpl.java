@@ -38,7 +38,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         // Mapping Departments Entity to Departments DTOs
         return departments.stream()
-                .map((department) -> modelMapper.map(departments,DepartmentDto.class))
+                .map(department -> modelMapper.map(department, DepartmentDto.class))
                 .collect(Collectors.toList());
     }
 
