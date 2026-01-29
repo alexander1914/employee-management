@@ -4,12 +4,16 @@ import com.github.alexander.employee.dto.DepartmentDto;
 import com.github.alexander.employee.dto.EmployeeDto;
 import com.github.alexander.employee.entity.Department;
 import com.github.alexander.employee.entity.Employee;
+import com.github.alexander.employee.exception.BadRequestException;
 import com.github.alexander.employee.exception.ResourceNotFoundException;
 import com.github.alexander.employee.repository.DepartmentRepository;
 import com.github.alexander.employee.repository.EmployeeRepository;
 import com.github.alexander.employee.service.EmployeeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -24,6 +28,42 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeeRepository = employeeRepository;
         this.departmentRepository = departmentRepository;
         this.modelMapper = modelMapper;
+    }
+
+    @Override
+    public EmployeeDto getEmployeeById(Long departmentId, Long employeeId) {
+        // First, we'll retrieve the Department and Employee from the database using the given department ID.
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + departmentId));
+
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + employeeId));
+
+        // It's validation the department from the database
+        if(!employee.getDepartment().getId().equals(department.getId())){
+            throw new BadRequestException("This employee does not belong to department with ID " + departmentId);
+        }
+
+        // We'll convert the saved Employee entity back in an Employee object before returning it.
+        EmployeeDto employeeDto = modelMapper.map(employee, EmployeeDto.class);
+        employeeDto.setDepartmentId(employee.getDepartment().getId());
+
+        return employeeDto;
+    }
+
+    @Override
+    public List<EmployeeDto> getAllEmployeesDepartmentId(Long departmentId) {
+        // First, we'll retrieve the Department from the database using the given department ID.
+        // If the department does not exist, we'll throw a ResourceNotFoundException.
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + departmentId));
+
+        //Second, we'll retrieve the Department from the database using the given department ID.
+        List<Employee> employees = employeeRepository.findByDepartmentId(departmentId);
+
+        return employees.stream()
+                .map((employee) -> modelMapper.map(employee, EmployeeDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override

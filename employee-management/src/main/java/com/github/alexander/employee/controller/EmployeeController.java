@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/departments")
 public class EmployeeController {
@@ -16,8 +18,25 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    @GetMapping("/{departmentId}/employees/{id}")
+    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long departmentId,
+                                                       @PathVariable("id") Long employeeId){
+
+        EmployeeDto employeeDto = employeeService.getEmployeeById(departmentId, employeeId);
+
+        return new ResponseEntity<>(employeeDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/{departmentId}/employees")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployeesByDepartmentId(@PathVariable Long departmentId){
+
+        List<EmployeeDto> employees = employeeService.getAllEmployeesDepartmentId(departmentId);
+
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
     @PostMapping("/{departmentId}/employees")
-    public ResponseEntity<EmployeeDto> addEmployee(@PathVariable("departmentId") Long departmentId,
+    public ResponseEntity<EmployeeDto> addEmployee(@PathVariable Long departmentId,
                                                    @RequestBody EmployeeDto employeeDto){
 
         EmployeeDto savedEmployee = employeeService.addEmployee(departmentId, employeeDto);
