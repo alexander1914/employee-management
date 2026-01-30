@@ -8,4 +8,5 @@ public interface EmployeeService {
     EmployeeDto getEmployeeById(Long departmentId, Long employeeId);
     List<EmployeeDto> getAllEmployeesDepartmentId(Long departmentId);
     EmployeeDto addEmployee(Long departmentId, EmployeeDto employeeDto);
+    EmployeeDto updateEmployee(Long departmentId, Long employeeId, EmployeeDto employeeDto);
 }
