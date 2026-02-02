@@ -134,6 +134,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new BadRequestException("This employee does not belong to department with id: " + departmentId);
         }
 
+        //Finally, to delete the employe from the database
         employeeRepository.delete(employee);
     }
 }
