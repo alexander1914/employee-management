@@ -118,4 +118,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return savedEmployeeDto;
     }
+
+    @Override
+    public void deleteEmployee(Long departmentId, Long employeeId) {
+        // First, we'll retrieve the Department and Employee from the database using the given department ID.
+        // If the department does not exist, we'll throw a ResourceNotFoundException.
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + departmentId));
+
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + employeeId));
+
+        //Second, it's validation the department from the database
+        if(!employee.getDepartment().getId().equals(department.getId())){
+            throw new BadRequestException("This employee does not belong to department with id: " + departmentId);
+        }
+
+        employeeRepository.delete(employee);
+    }
 }
